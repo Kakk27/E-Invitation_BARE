@@ -90,6 +90,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 videoOverlay.remove();
             }
         }, 1000);
+
+        // Lottie Scroll Hint logic
+        const lottieHints = document.querySelectorAll('.lottie-scroll-hint');
+        const fadeLottieHints = () => {
+            lottieHints.forEach(hint => hint.classList.add('hidden'));
+        };
+
+        // Hide hints when reaching the RSVP section
+        const rsvpSection = document.getElementById('rsvp');
+        if (rsvpSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        fadeLottieHints();
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(rsvpSection);
+        }
     };
 
     // Auto-dismiss when video ends
